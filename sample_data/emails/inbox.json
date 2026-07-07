@@ -1,0 +1,115 @@
+{
+  "_comment": "MOCK INBOX — fictional sample data for MAYA's mock email connector. No real mail is accessed anywhere in this prototype.",
+  "account": "ravi.teja@dhruvafreight.example",
+  "label": "INBOX",
+  "messages": [
+    {
+      "id": "m-1001",
+      "from": "priya.nallamothu@dhruvafreight.example",
+      "from_name": "Priya Nallamothu",
+      "subject": "URGENT: Meridian Textiles escalation — recovery plan by Wednesday",
+      "date": "2026-07-07T08:12:00+05:30",
+      "label": "INBOX",
+      "body": "Ravi, Meridian's supply chain head called again this morning about consignment HYD-88214. They are pressing for the recovery plan before Wednesday and hinted at the SLA penalty clause. I need your draft by tomorrow evening so I can review before it goes out. Please prioritise this over the vendor review follow-ups. — Priya"
+    },
+    {
+      "id": "m-1002",
+      "from": "calendar@dhruvafreight.example",
+      "from_name": "Calendar",
+      "subject": "Invitation: Festival surge planning kickoff — Thu Jul 9, 11:00 IST",
+      "date": "2026-07-07T07:45:00+05:30",
+      "label": "INBOX",
+      "body": "You are invited to the festival surge planning kickoff meeting on Thursday, July 9 at 11:00 IST in the Godavari conference room. Agenda: Visakhapatnam warehouse capacity, 3PL rate cards, guarantee program pilot scope. Organiser: Arjun Rao. Please confirm attendance."
+    },
+    {
+      "id": "m-1003",
+      "from": "ops-desk@sagarroadlines.example",
+      "from_name": "Sagar Roadlines Ops Desk",
+      "subject": "Re: Missed pickups on Hyderabad-Chennai lane",
+      "date": "2026-07-06T18:30:00+05:30",
+      "label": "INBOX",
+      "body": "Dear Ravi garu, further to our call, we acknowledge the fourteen missed pickups in May and the pending consignment HYD-88251. Our dedicated fleet proposal is attached for your review. We request a meeting next week to discuss the performance improvement plan terms. Regards, Venkat, Sagar Roadlines."
+    },
+    {
+      "id": "m-1004",
+      "from": "lakshmi.devi@dhruvafreight.example",
+      "from_name": "Lakshmi Devi",
+      "subject": "GST re-verification for Meridian bookings — done for 11 of 14",
+      "date": "2026-07-07T09:05:00+05:30",
+      "label": "INBOX",
+      "body": "Ravi, update on the action item from Monday's sync: carrier GST details re-verified for 11 of 14 Meridian bookings. The remaining three have mismatched transporter IDs and I've raised tickets with the carriers. Will close all by Tuesday EOD as committed. One request: can you approve the Sunday pre-verification shift roster today so Suresh can staff it for July 12?"
+    },
+    {
+      "id": "m-1005",
+      "from": "no-reply@hdfcbank.example",
+      "from_name": "HDFC Bank",
+      "subject": "OTP for your net banking login",
+      "date": "2026-07-07T08:55:00+05:30",
+      "label": "INBOX",
+      "body": "Dear Customer, your one-time password (OTP) for net banking login is 482913. It is valid for 10 minutes. Do not share this OTP with anyone. Your account number ending 4891 was used to initiate this request. — HDFC Bank (fictional sample)"
+    },
+    {
+      "id": "m-1006",
+      "from": "payroll@dhruvafreight.example",
+      "from_name": "Payroll",
+      "subject": "Your payslip for June 2026",
+      "date": "2026-07-06T10:00:00+05:30",
+      "label": "INBOX",
+      "body": "Dear Ravi Teja, your salary slip for June 2026 is attached. Net pay of 1,84,000 was credited to your account on 05-06-2026. Gross pay and CTC breakup are available on the HR portal. — Payroll team (fictional sample)"
+    },
+    {
+      "id": "m-1007",
+      "from": "newsletter@supplychainweekly.example",
+      "from_name": "Supply Chain Weekly",
+      "subject": "5 trends reshaping Indian logistics in H2 2026",
+      "date": "2026-07-07T06:00:00+05:30",
+      "label": "INBOX",
+      "body": "This week: multimodal corridors expand, e-way bill 2.0 pilots, warehouse automation costs fall, festival capacity crunch predictions, and green fleet incentives. Read the full stories on our site. You are receiving this because you subscribed. Unsubscribe anytime."
+    },
+    {
+      "id": "m-1008",
+      "from": "drsudha.clinic@banjarahealth.example",
+      "from_name": "Banjara Hills Clinic",
+      "subject": "Appointment confirmation — Thursday 6:30 PM",
+      "date": "2026-07-06T16:20:00+05:30",
+      "label": "INBOX",
+      "body": "Dear Mr. Teja, this confirms your appointment with Dr. Sudha on Thursday, July 9 at 6:30 PM. Kindly carry your previous blood test report. Please arrive 10 minutes early for registration. — Banjara Hills Clinic (fictional sample)"
+    },
+    {
+      "id": "m-1009",
+      "from": "suresh.babu@dhruvafreight.example",
+      "from_name": "Suresh Babu",
+      "subject": "Vijayawada hub — Sunday shift volunteers confirmed",
+      "date": "2026-07-07T09:40:00+05:30",
+      "label": "INBOX",
+      "body": "Ravi, six team members volunteered for the Sunday pre-verification pilot on July 12. I'll run it myself the first two weekends. Waiting on the roster approval Lakshmi mentioned. Also — the toll interchange issue repeated yesterday with two Eastern Cargo vehicles; suggest we add the standing e-way bill audit to Thursday's agenda."
+    },
+    {
+      "id": "m-1010",
+      "from": "promo@cloudcrmdeals.example",
+      "from_name": "CloudCRM Deals",
+      "subject": "Last chance: 40% off annual plans ends tonight!",
+      "date": "2026-07-07T05:30:00+05:30",
+      "label": "INBOX",
+      "body": "Don't miss out! Upgrade your CRM before midnight and save 40% on annual plans. Trusted by 10,000+ growing businesses. Claim your discount now. Unsubscribe from promotional emails here."
+    },
+    {
+      "id": "m-1011",
+      "from": "statements@icicibank.example",
+      "from_name": "ICICI Bank Cards",
+      "subject": "Your credit card statement is ready",
+      "date": "2026-07-06T21:15:00+05:30",
+      "label": "INBOX",
+      "body": "Dear Customer, your credit card statement for the card ending 6467 is ready. Total amount due: 47,832.00. Minimum amount due: 2,392.00. Payment due date: 2026-07-18. View your statement on net banking. — ICICI Bank (fictional sample)"
+    },
+    {
+      "id": "m-1012",
+      "from": "ceo@dhruvafreight.example",
+      "from_name": "Madhavi Kondapalli",
+      "subject": "Board wants the Q2 vendor story on Friday",
+      "date": "2026-07-07T09:55:00+05:30",
+      "label": "INBOX",
+      "body": "Ravi, the board pre-read goes out Friday morning. I want two slides from the Q2 vendor review: the Sagar Roadlines risk with your recommendation, and the Krishna Transport concentration question. Keep it crisp. Send me your draft by Thursday noon. — Madhavi"
+    }
+  ]
+}

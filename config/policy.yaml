@@ -1,0 +1,80 @@
+# MAYA — privacy & safety policy
+# This file defines the classifier rules and the action-risk table.
+# The policy engine treats this as law: BLOCKED content is never summarized,
+# never stored, never displayed — only counted.
+
+sensitivity:
+  # ---- BLOCKED: financial / credential / identity material -------------------
+  blocked:
+    banking:
+      keywords: ["account balance", "a/c no", "account number", "ifsc", "neft", "rtgs",
+                 "imps", "upi pin", "net banking", "bank statement", "debited from your",
+                 "credited to your", "available balance", "savings account"]
+      sender_domains: ["hdfcbank", "icicibank", "sbi.co", "axisbank", "kotak",
+                       "paytm", "phonepe", "gpay", "razorpay"]
+    payments_cards:
+      keywords: ["card ending", "credit card statement", "cvv", "card number",
+                 "minimum amount due", "total amount due", "billing cycle"]
+    investments:
+      keywords: ["demat", "brokerage", "portfolio statement", "mutual fund statement",
+                 "folio number", "zerodha", "groww", "nav allotted", "sip installment"]
+    tax:
+      keywords: ["form 16", "itr", "income tax return", "tds certificate", "advance tax",
+                 "tax computation"]
+    payroll:
+      keywords: ["payslip", "salary slip", "net pay", "gross pay", "ctc breakup",
+                 "salary credited", "payroll"]
+    credentials:
+      keywords: ["password is", "password:", "passcode", "one-time password", "otp",
+                 "security answer", "security question", "recovery code", "2fa code",
+                 "verification code"]
+    government_id:
+      keywords: ["aadhaar", "pan card", "passport number", "voter id", "ssn",
+                 "social security"]
+
+  # ---- SENSITIVE: handled with care — redacted, flagged, zero humor ----------
+  sensitive:
+    health:
+      keywords: ["doctor", "clinic", "diagnosis", "prescription", "medical report",
+                 "blood test", "hospital", "therapy", "appointment with dr"]
+    legal:
+      keywords: ["legal notice", "lawsuit", "attorney", "advocate", "court hearing",
+                 "arbitration", "nda breach", "cease and desist"]
+    personal:
+      keywords: ["visa interview", "immigration", "divorce", "bereavement", "funeral",
+                 "condolence", "resignation letter"]
+
+# Regex-based redaction. Applied to ALL text before summarization or display of
+# excerpts — even SAFE documents can contain a stray secret.
+redaction:
+  patterns:
+    - name: CARD_NUMBER          # 13–19 digits with optional spaces/dashes, Luhn-checked in code
+      regex: '\b(?:\d[ \-]?){13,19}\b'
+      luhn: true
+    - name: AADHAAR              # 12 digits in 4-4-4 groups, not part of a longer number
+      regex: '(?<!\d)(?<!\d[ \-])\b\d{4}[ \-]\d{4}[ \-]\d{4}\b(?![ \-]?\d)'
+    - name: PAN                  # Indian PAN: ABCDE1234F
+      regex: '\b[A-Z]{5}[0-9]{4}[A-Z]\b'
+    - name: IFSC                 # Indian bank branch code
+      regex: '\b[A-Z]{4}0[A-Z0-9]{6}\b'
+    - name: OTP_CODE             # "OTP ... 482913" / "code is 4829"
+      regex: '(?i)\b(?:otp|one[- ]time password|verification code|2fa code)\b\D{0,20}(\d{4,8})'
+    - name: SSN
+      regex: '\b\d{3}-\d{2}-\d{4}\b'
+    - name: ACCOUNT_NUMBER       # "account number 123456789012" / "a/c no: ..."
+      regex: '(?i)\b(?:account\s*(?:number|no\.?)|a/c\s*no\.?)\s*[:\-]?\s*[Xx\*]*(\d{6,16})'
+    - name: PASSWORD             # "password: hunter2"
+      regex: '(?i)\b(?:password|passcode|pwd)\s*(?:is|[:\-])\s*(\S+)'
+    - name: PHONE_IN             # Indian mobile numbers (+91…)
+      regex: '(?<!\d)(?:\+91[ \-]?)?[6-9]\d{4}[ \-]?\d{5}(?!\d)'
+
+# Action-risk table. "safe" runs immediately; "gated" requires explicit confirmation
+# with the exact operation shown first; "forbidden" is never available.
+actions:
+  safe:      [search_files, read_file, summarize_file, compare_files, email_digest,
+              draft_reply, extract_tasks, briefing, remember, recall]
+  gated:     [move_file, delete_file, send_email]      # delete → reversible .maya_trash
+  forbidden: [access_banking, access_payments, access_brokerage, access_tax_portal,
+              access_payroll_system, access_password_manager, bulk_delete,
+              modify_system_settings]
+  confirmation_timeout_seconds: 180

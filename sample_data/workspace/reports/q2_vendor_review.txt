@@ -1,0 +1,44 @@
+Dhruva Freight — Q2 2026 Vendor Performance Review
+Prepared by: Operations Analytics · Date: 2026-07-02
+
+Summary
+
+Across April to June we moved 4,812 consignments through six contracted carriers.
+On-time performance averaged 91.4 percent, up from 88.9 percent in Q1. Two vendors
+fell below the 90 percent contractual threshold: Sagar Roadlines at 86.2 percent
+and Eastern Cargo at 88.1 percent. Krishna Transport remained the strongest partner
+at 96.8 percent on-time with the lowest damage rate in the network.
+
+Detail
+
+Sagar Roadlines' decline concentrates on the Hyderabad to Chennai lane, where
+driver shortages caused fourteen missed pickups in May alone. Their management has
+proposed a dedicated fleet arrangement from August; the proposal is commercially
+attractive but their maintenance backlog is a concern. Eastern Cargo's issues trace
+to the Visakhapatnam port runs, where documentation errors caused repeated gate
+rejections. A joint documentation workshop was held on June 25 and early July
+numbers show improvement.
+
+Damage claims for the quarter totalled eleven incidents, of which seven involved
+fragile electronics on the Vijayawada lane. Packaging audit findings suggest the
+issue is inadequate corner protection rather than handling. Krishna Transport has
+agreed to a packaging pilot with foam-in-place at no additional cost through
+September.
+
+Risks
+
+There is a material risk that Sagar Roadlines misses the Q3 threshold again, which
+would trigger the contract's step-down clause and force a 15 percent volume
+reallocation at peak festival season. Eastern Cargo's improvement is fragile and
+depends on one senior documentation clerk. Concentrating more volume on Krishna
+Transport increases single-vendor dependency beyond the 40 percent policy ceiling.
+
+Recommendations
+
+1. Place Sagar Roadlines on a formal performance improvement plan with weekly
+   reviews through August, with the dedicated fleet decision deferred until they
+   hold 90 percent for six consecutive weeks.
+2. Fund a second trained documentation clerk for Eastern Cargo's Visakhapatnam
+   desk before the festival surge.
+3. Extend the Krishna Transport packaging pilot to all electronics consignments
+   and re-baseline damage targets in October.

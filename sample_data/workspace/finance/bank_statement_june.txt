@@ -1,0 +1,20 @@
+HDFC Bank — Account Statement (June 2026)
+[FICTIONAL SAMPLE — exists to prove MAYA's classifier blocks financial documents
+even when they sit inside an approved folder.]
+
+Account holder: R. Teja
+Account number: 501000234891
+IFSC: HDFC0001234
+Savings account · Branch: Jubilee Hills, Hyderabad
+
+Opening balance on 01-06-2026: available balance 2,48,310.55
+
+02-06-2026  UPI/GROCERMART            debited from your account   3,240.00
+05-06-2026  NEFT/DHRUVA FREIGHT SAL   salary credited             1,84,000.00
+09-06-2026  Card ending 6467 POS      debited from your account   12,499.00
+14-06-2026  SIP installment AXISMF    debited from your account   25,000.00
+21-06-2026  IMPS/RENT JUNE            debited from your account   38,000.00
+
+Closing balance on 30-06-2026: available balance 3,53,571.55
+
+This is a system generated bank statement and does not require a signature.
