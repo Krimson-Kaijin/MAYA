@@ -22,9 +22,10 @@ _URGENT_RE = re.compile(
     r"monday|tuesday|wednesday|thursday|friday)|before (?:wednesday|thursday|friday|eod)|deadline)\b",
     re.IGNORECASE,
 )
+# Strong signals only — merely *mentioning* a meeting shouldn't hijack the bucket.
 _MEETING_RE = re.compile(
-    r"\b(?:invitation|invite|meeting|appointment|calendar|agenda|conference room|"
-    r"call scheduled|kickoff|confirm attendance)\b", re.IGNORECASE)
+    r"\b(?:invitation|invite(?:d)?\b|appointment|calendar invite|conference room|"
+    r"call scheduled|confirm (?:your )?attendance)\b", re.IGNORECASE)
 _NOISE_RE = re.compile(
     r"\b(?:unsubscribe|newsletter|promo\w*|discount|% off|last chance|limited time|"
     r"webinar recording|you are receiving this)\b", re.IGNORECASE)

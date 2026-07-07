@@ -310,7 +310,7 @@ class Orchestrator:
                    for it in digest["buckets"][bucket]]
         ctx["last_digest_items"] = visible
 
-        core = (f"Inbox digest ready: {counts['urgent']} urgent, {counts['action']} need "
+        core = (f"Inbox digest ready: {counts['urgent']} urgent, {counts['action']} needing "
                 f"action, {counts['meetings']} meeting-related, {counts['follow_ups']} "
                 f"follow-ups, {counts['noise']} noise.")
         reply = self.persona.compose(core, pool="inbox_summarized")

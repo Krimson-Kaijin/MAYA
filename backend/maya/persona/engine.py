@@ -91,7 +91,7 @@ class Persona:
     def refusal(self, categories: list[str], what: str = "that content") -> str:
         """Plain, respectful, zero humor — used for BLOCKED material."""
         names = sorted({_CATEGORY_LABELS.get(c, c) for c in categories}) or ["restricted"]
-        label = " and ".join(names)
+        label = names[0] if len(names) == 1 else ", ".join(names[:-1]) + " and " + names[-1]
         return (
             f"That looks like {label} content. Per your privacy policy, I don't read, "
             f"summarize, or store it — {what} stays shielded."

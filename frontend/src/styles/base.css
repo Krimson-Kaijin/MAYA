@@ -1,0 +1,130 @@
+/* ============================================================================
+   MAYA design system — base tokens & typography
+   Ink-dark canvas, Indian jewel tones (marigold gold, peacock teal, rani rose,
+   deep violet), Fraunces display over Manrope body.
+   ========================================================================= */
+
+:root {
+  /* canvas */
+  --bg-0: #07080d;
+  --bg-1: #0b0e16;
+  --bg-2: #10141f;
+  --surface: #131827;
+  --surface-2: #181e30;
+  --hairline: rgba(230, 197, 132, 0.11);
+  --hairline-strong: rgba(230, 197, 132, 0.22);
+
+  /* ink */
+  --ink: #ede7d9;
+  --ink-dim: #9aa1b5;
+  --ink-faint: #636b82;
+
+  /* jewels */
+  --gold: #d9a441;
+  --gold-bright: #f2c36b;
+  --gold-dim: rgba(217, 164, 65, 0.75);
+  --teal: #1fb6a6;
+  --teal-deep: #12756c;
+  --violet: #8b7cf6;
+  --rose: #e25c7e;
+  --green: #57b98a;
+
+  /* state tints */
+  --safe-tint: rgba(87, 185, 138, 0.12);
+  --sensitive-tint: rgba(217, 164, 65, 0.12);
+  --blocked-tint: rgba(226, 92, 126, 0.12);
+
+  /* type */
+  --font-display: 'Fraunces', 'Georgia', serif;
+  --font-body: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'SF Mono', ui-monospace, 'Cascadia Code', Menlo, monospace;
+
+  /* geometry */
+  --radius: 16px;
+  --radius-sm: 10px;
+  --shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+  --shadow-soft: 0 8px 28px rgba(0, 0, 0, 0.35);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body, #root { height: 100%; }
+
+body {
+  background:
+    radial-gradient(1100px 700px at 12% -8%, rgba(31, 182, 166, 0.07), transparent 60%),
+    radial-gradient(900px 700px at 105% 108%, rgba(139, 124, 246, 0.06), transparent 55%),
+    radial-gradient(700px 420px at 50% 0%, rgba(217, 164, 65, 0.05), transparent 60%),
+    var(--bg-0);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 14.5px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+
+::selection { background: rgba(217, 164, 65, 0.32); }
+
+h1, h2, h3 { font-family: var(--font-display); font-weight: 600; letter-spacing: 0.01em; }
+
+button {
+  font-family: var(--font-body);
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+button:disabled { cursor: not-allowed; opacity: 0.45; }
+
+input, select, textarea {
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--bg-2);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  outline: none;
+}
+input:focus, textarea:focus, select:focus {
+  border-color: rgba(31, 182, 166, 0.55);
+  box-shadow: 0 0 0 3px rgba(31, 182, 166, 0.12);
+}
+
+a { color: var(--teal); text-decoration: none; }
+
+/* scrollbars */
+::-webkit-scrollbar { width: 9px; height: 9px; }
+::-webkit-scrollbar-thumb {
+  background: rgba(154, 161, 181, 0.18);
+  border-radius: 8px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover { background-color: rgba(154, 161, 181, 0.32); background-clip: padding-box; }
+::-webkit-scrollbar-track { background: transparent; }
+
+/* section label — the recurring gold eyebrow */
+.eyebrow {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold-dim);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.eyebrow::after {
+  content: '';
+  height: 1px;
+  flex: 1;
+  background: linear-gradient(90deg, var(--hairline-strong), transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
