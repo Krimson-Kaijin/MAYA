@@ -27,6 +27,7 @@ export default function App() {
   const [glance, setGlance] = useState(null)
   const [feed, setFeed] = useState([])
   const [settings, setSettings] = useState({ tts_rate: 1.0, voice_hint: 'en-IN' })
+  const [memCount, setMemCount] = useState(null)
   const [speakOn, setSpeakOn] = useState(false)
   const [wakeOn, setWakeOn] = useState(false)
   const [micLive, setMicLive] = useState(false)
@@ -43,9 +44,10 @@ export default function App() {
 
   const refreshFeed = useCallback(async () => {
     try {
-      const [a, s] = await Promise.all([api.audit(12), api.sources()])
+      const [a, s, m] = await Promise.all([api.audit(12), api.sources(), api.memoryList()])
       setFeed(a.entries)
       setSources(s)
+      setMemCount(m.items.length)
     } catch { /* backend not up yet */ }
   }, [])
 
@@ -64,6 +66,7 @@ export default function App() {
             actions: (card.action_emails?.length ?? 0) + (card.doc_tasks?.items?.length ?? 0),
             meetings: card.meetings?.length ?? 0,
             top: card.suggestions?.[0],
+            suggestions: card.suggestions?.length ?? 0,
             shielded: card.shielded_count ?? 0,
           })
         }
@@ -178,6 +181,15 @@ export default function App() {
               wakeOn={wakeOn} onToggleWake={toggleWake}
               speakOn={speakOn} onToggleSpeak={() => { setSpeakOn(!speakOn); if (speakOn) stopSpeaking() }}
               handlers={handlers}
+              onDive={setView}
+              neuralStats={{
+                files: sources ? `${sources.indexed_files} indexed` : '…',
+                inbox: glance != null ? `${glance.urgent} urgent today` : '…',
+                briefing: glance != null ? `${glance.suggestions} next actions` : '…',
+                memory: memCount != null ? `${memCount} ${memCount === 1 ? 'memory' : 'memories'}` : '…',
+                audit: feed.length ? `${feed.length} recent events` : 'live trail',
+                settings: settings?.wit_level ? `wit: ${settings.wit_level}` : '…',
+              }}
             />
           )}
           {view === 'files' && <FilesView notify={notify} />}

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import Orb from './Orb.jsx'
+import NeuralMap from './NeuralMap.jsx'
 import CardRenderer from './Cards.jsx'
 import { IconMic, IconSend } from './icons.jsx'
 import { sttAvailable } from '../voice.js'
@@ -31,7 +32,7 @@ const SUGGESTIONS = [
   ['Compare the logistics SOP v2 and v3', 'rose'],
 ]
 
-function Hero({ onSend }) {
+function Greeting() {
   const now = new Date()
   const hour = now.getHours()
   const word = hour < 12 ? 'Good morning.' : hour < 17 ? 'Good afternoon.' : 'Good evening.'
@@ -39,17 +40,9 @@ function Hero({ onSend }) {
     weekday: 'long', day: 'numeric', month: 'long',
   })
   return (
-    <div className="hero">
+    <div className="hero hero-compact">
       <div className="hero-date">{date}</div>
       <h2 className="hero-greeting">{word}</h2>
-      <div className="hero-sub">Cheppandi — what do you need?</div>
-      <div className="hero-pills">
-        {SUGGESTIONS.map(([s, accent]) => (
-          <button key={s} className="pill" data-accent={accent} onClick={() => onSend(s, 'chat')}>
-            <span className="p-dot" /> {s}
-          </button>
-        ))}
-      </div>
     </div>
   )
 }
@@ -57,9 +50,11 @@ function Hero({ onSend }) {
 export default function CommandCenter({
   messages, mayaState, tagline, interim, onSend, onMic, micLive,
   wakeOn, onToggleWake, speakOn, onToggleSpeak, handlers, thinking,
+  neuralStats, onDive,
 }) {
   const [text, setText] = useState('')
   const streamRef = useRef(null)
+  const idle = messages.length === 0 && !thinking
 
   useEffect(() => {
     const el = streamRef.current
@@ -76,17 +71,34 @@ export default function CommandCenter({
   return (
     <div className="command-wrap">
       <div className="chat-col">
-        <Orb state={mayaState} tagline={tagline} interim={interim} />
-        <div className="chat-stream" ref={streamRef}>
-          {messages.length === 0 && <Hero onSend={onSend} />}
-          {messages.map((m, i) => <Message key={i} m={m} handlers={handlers} />)}
-          {thinking && (
-            <div className="msg maya">
-              <span className="who">maya</span>
-              <div className="bubble"><span className="thinking-dots"><i /><i /><i /></span></div>
+        {idle ? (
+          <>
+            <Greeting />
+            <NeuralMap orbState={mayaState} tagline={tagline} interim={interim}
+                       stats={neuralStats} onDive={onDive} />
+            <div className="hero-pills hero-pills-row">
+              {SUGGESTIONS.map(([s, accent]) => (
+                <button key={s} className="pill" data-accent={accent}
+                        onClick={() => onSend(s, 'chat')}>
+                  <span className="p-dot" /> {s}
+                </button>
+              ))}
             </div>
-          )}
-        </div>
+          </>
+        ) : (
+          <>
+            <Orb state={mayaState} tagline={tagline} interim={interim} />
+            <div className="chat-stream" ref={streamRef}>
+              {messages.map((m, i) => <Message key={i} m={m} handlers={handlers} />)}
+              {thinking && (
+                <div className="msg maya">
+                  <span className="who">maya</span>
+                  <div className="bubble"><span className="thinking-dots"><i /><i /><i /></span></div>
+                </div>
+              )}
+            </div>
+          </>
+        )}
 
         <div className="composer">
           <div className="composer-row">

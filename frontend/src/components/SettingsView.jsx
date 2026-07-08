@@ -59,18 +59,25 @@ export default function SettingsView({ notify, sources, onSettingsChanged }) {
           <div className="s-label">Voice</div>
           <div className="s-help">
             {ttsAvailable
-              ? 'Voices come from your OS/browser. en-IN voices sound most like MAYA.'
+              ? 'Ranked by quality — “natural” voices are neural/cloud rendered and sound far ' +
+                'less robotic. On Windows, Edge offers the best en-IN voices (Neerja, Swara).'
               : 'Speech synthesis is not available in this browser.'}
           </div>
         </div>
         <div style={{ display: 'flex', gap: 8 }}>
-          <select value={s.voice_hint || 'en-IN'} onChange={(e) => save({ voice_hint: e.target.value })}>
-            <option value="en-IN">en-IN (preferred)</option>
-            {[...new Set(voices.map((v) => v.lang))].map((l) => <option key={l} value={l}>{l}</option>)}
+          <select value={s.voice_hint || 'en-IN'} onChange={(e) => save({ voice_hint: e.target.value })}
+                  style={{ maxWidth: 260 }}>
+            <option value="en-IN">Auto — best available (en-IN)</option>
+            {voices.slice(0, 12).map((v) => (
+              <option key={v.name} value={v.name}>
+                {v.natural ? '✦ ' : ''}{v.name} · {v.lang}
+              </option>
+            ))}
           </select>
           <button className="btn btn-ghost btn-sm" disabled={!ttsAvailable}
-                  onClick={() => speak('Namaskaram. I am MAYA — ready when you are.',
-                                       { rate: s.tts_rate, voiceHint: s.voice_hint })}>
+                  onClick={() => speak(
+                    'Namaskaram! I am MAYA. Shall we get your day in order? I promise to be gentle about the inbox.',
+                    { rate: s.tts_rate, voiceHint: s.voice_hint })}>
             Test
           </button>
         </div>

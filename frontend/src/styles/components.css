@@ -807,3 +807,137 @@
 /* staggered card entrances inside a message */
 .msg .card { animation: rise 0.34s ease both; }
 .rail { animation: viewIn 0.34s cubic-bezier(0.2, 0.9, 0.3, 1) both; }
+
+/* ============================================================================
+   v3 — the Neural Atlas (spatial home navigation)
+   Three depth planes (wires → core → neurons) tilt with the pointer; synapse
+   pulses carry "signals" from the core to each section. Liquid-glass nodes
+   keep icon + label + live stat visible at all times: explorable, never cryptic.
+   ========================================================================= */
+
+.hero-compact { padding: 18px 20px 0; gap: 6px; }
+.hero-compact .hero-greeting { font-size: 27px; }
+
+.hero-pills-row { margin: 4px auto 14px; }
+
+.neural-map {
+  --px: 0; --py: 0;
+  position: relative;
+  flex: 1;
+  min-height: 380px;
+  margin: 0 26px;
+  animation: rise 0.45s ease both;
+}
+
+/* plane 1 — synapses (slowest parallax) */
+.np-wires {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  translate: calc(var(--px) * -6px) calc(var(--py) * -5px);
+  transition: translate 0.25s ease-out;
+  overflow: visible;
+}
+.synapse { fill: none; stroke-width: 1.1; opacity: 0.16; }
+.synapse-flow {
+  fill: none; stroke-width: 1.5; opacity: 0.45;
+  stroke-dasharray: 4 16;
+  stroke-linecap: round;
+  animation: synapseFlow 2.8s linear infinite;
+}
+@keyframes synapseFlow { to { stroke-dashoffset: -40; } }
+.pulse { opacity: 0.95; }
+.wire-dim { opacity: 0.08; transition: opacity 0.3s; }
+
+/* plane 2 — the core orb */
+.np-core {
+  position: absolute; left: 50%; top: 46%;
+  transform: translate(-50%, -50%);
+  translate: calc(var(--px) * 4px) calc(var(--py) * 3px);
+  transition: translate 0.2s ease-out, opacity 0.3s, filter 0.3s;
+}
+.neural-map .orb-stack { padding: 0; gap: 10px; }
+.neural-map.diving .np-core { opacity: 0.2; filter: blur(4px); }
+
+/* plane 3 — neurons (fastest parallax) */
+.np-nodes {
+  position: absolute; inset: 0;
+  translate: calc(var(--px) * 11px) calc(var(--py) * 9px);
+  transition: translate 0.16s ease-out;
+}
+.neuron {
+  --n-accent: var(--teal);
+  position: absolute;
+  transform: translate(-50%, -50%);
+  background: none; border: none; padding: 14px;   /* generous hit target */
+  cursor: pointer;
+}
+.neuron[data-accent="teal"]  { --n-accent: var(--teal); }
+.neuron[data-accent="iris"]  { --n-accent: var(--iris); }
+.neuron[data-accent="gold"]  { --n-accent: var(--gold); }
+.neuron[data-accent="mint"]  { --n-accent: var(--green); }
+.neuron[data-accent="coral"] { --n-accent: var(--coral); }
+.neuron[data-accent="rose"]  { --n-accent: var(--rose); }
+
+.neuron .n-ring {
+  position: absolute; inset: 4px;
+  border-radius: 20px;
+  border: 1px solid var(--n-accent);
+  opacity: 0;
+  transition: opacity 0.25s, inset 0.25s;
+  pointer-events: none;
+}
+.neuron:hover .n-ring, .neuron:focus-visible .n-ring {
+  opacity: 0.5; inset: 0;
+  animation: ringPulse 1.6s ease-out infinite;
+}
+@keyframes ringPulse {
+  0% { opacity: 0.55; }
+  70% { opacity: 0.15; }
+  100% { opacity: 0.55; }
+}
+
+.neuron .n-body {
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  min-width: 108px;
+  padding: 13px 16px 11px;
+  border-radius: 16px;
+  border: 1px solid var(--hairline);
+  background: rgba(23, 15, 40, 0.55);              /* liquid glass */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(2, 1, 8, 0.35);
+  animation: nfloat 6s ease-in-out infinite alternate;
+  animation-delay: inherit; animation-duration: inherit;
+  transition: scale 0.22s cubic-bezier(0.2, 0.9, 0.3, 1.2),
+              border-color 0.22s, box-shadow 0.22s, opacity 0.3s, filter 0.3s;
+}
+@keyframes nfloat { from { translate: 0 3px; } to { translate: 0 -6px; } }
+.neuron:hover .n-body, .neuron:focus-visible .n-body {
+  scale: 1.08;
+  border-color: color-mix(in srgb, var(--n-accent) 60%, transparent);
+  box-shadow: 0 14px 38px rgba(2, 1, 8, 0.5),
+              0 0 26px color-mix(in srgb, var(--n-accent) 26%, transparent);
+}
+.neuron svg { width: 18px; height: 18px; color: var(--n-accent); }
+.neuron .n-label { font-size: 13px; font-weight: 700; color: var(--ink); }
+.neuron .n-stat { font-size: 10.5px; color: var(--ink-faint); letter-spacing: 0.02em; white-space: nowrap; }
+
+/* the dive */
+.neuron.dive-target .n-body {
+  scale: 1.55;
+  border-color: var(--n-accent);
+  box-shadow: 0 0 60px color-mix(in srgb, var(--n-accent) 45%, transparent);
+}
+.neuron.dive-away .n-body { opacity: 0.12; filter: blur(4px); scale: 0.88; }
+
+.np-caption {
+  position: absolute; bottom: -2px; left: 0; right: 0;
+  text-align: center;
+  font-family: var(--font-display); font-style: italic;
+  font-size: 12px; color: var(--ink-faint);
+}
+
+/* ---- ambient micro-motion elsewhere ---------------------------------------- */
+.feed-item { animation: rise 0.3s ease both; }
+.shield-pill.alert svg { animation: shieldBeat 2.6s ease-in-out infinite; }
+@keyframes shieldBeat { 0%, 100% { transform: scale(1); } 12% { transform: scale(1.18); } 24% { transform: scale(1); } }
