@@ -1,0 +1,56 @@
+# MAYA — user settings
+# Paths are relative to the repository root unless absolute.
+# This file is the single source of truth for WHAT MAYA IS ALLOWED TO TOUCH.
+
+workspace:
+  # Folders MAYA may index and search. Nothing outside these paths is ever read.
+  approved_folders:
+    - sample_data/workspace
+  # Pruned even inside approved folders (folder-name or path fragments).
+  denied_patterns:
+    - private
+    - .ssh
+    - .gnupg
+    - wallet
+    - passwords
+    - .maya_trash
+  # File types the indexer will parse.
+  allowed_extensions: [".txt", ".md", ".csv", ".pdf", ".docx"]
+  max_file_mb: 12
+
+email:
+  # "mock" reads sample_data/emails/inbox.json — clearly labelled in the UI.
+  # "gmail" is a documented stub; it refuses to run without real credentials.
+  provider: mock
+  # Only these labels/folders may be read, even once a real connector exists.
+  approved_labels: ["INBOX", "Clients", "Operations"]
+  # Senders that boost priority in the daily digest.
+  vip_senders:
+    - priya.nallamothu@dhruvafreight.example
+    - ceo@dhruvafreight.example
+  # Never auto-send. Drafts only, and "send" (mock: writes to outbox.json) is gated.
+  allow_auto_send: false
+
+voice:
+  wake_phrases: ["maya", "hey maya", "ok maya"]
+  # STT/TTS run in the browser (Web Speech API); audio never reaches the backend.
+  tts_rate: 1.0
+  tts_pitch: 1.0
+  preferred_voice_hint: "en-IN"   # picks an Indian-English voice when the OS has one
+
+memory:
+  enabled: true
+  # Values that classify as BLOCKED (card numbers, OTPs, IDs…) are refused regardless.
+  encrypt_at_rest: true
+
+persona:
+  # off | subtle | classic  — how much wit MAYA is allowed
+  wit_level: classic
+  telugu_flair: true
+
+server:
+  host: 127.0.0.1
+  port: 8930
+
+storage:
+  data_dir: data          # SQLite DB, encryption key, trash live here (gitignored)
