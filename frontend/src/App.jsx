@@ -164,11 +164,12 @@ export default function App() {
 
   return (
     <div className="shell">
+      <div className="aurora" aria-hidden="true"><i className="a1" /><i className="a2" /><i className="a3" /></div>
       <Sidebar view={view} onNavigate={setView}
                shielded={glance?.shielded ?? 0} sources={sources} />
 
       <div className="main">
-        <div className="stage">
+        <div className="stage view-shell" key={view}>
           {view === 'command' && (
             <CommandCenter
               messages={messages} mayaState={mayaState} thinking={thinking}

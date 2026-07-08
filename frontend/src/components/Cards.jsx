@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { IconLock, IconWand, IconCompare, IconSend, IconSpark } from './icons.jsx'
+import { DistributionBar, DuoBar, bucketColor } from './Charts.jsx'
 
 const fmtDate = (iso) => {
   try {
@@ -18,8 +19,8 @@ export function SensitivityBadge({ level }) {
 /* ------------------------------------------------------------------ files -- */
 export function FilesCard({ card, onSummarize, onPickCompare, compareSel = [] }) {
   return (
-    <div className="card">
-      <div className="card-title"><IconSpark style={{ width: 15, color: 'var(--gold)' }} /> Files found</div>
+    <div className="card" data-accent="teal">
+      <div className="card-title"><IconSpark style={{ width: 15 }} /> Files found</div>
       <div style={{ marginTop: 8 }}>
         {card.items.map((f) => (
           <div key={f.path}
@@ -55,9 +56,9 @@ export function SummaryCard({ card }) {
   const { summary, tasks } = card
   const has = (k) => tasks && tasks[k] && tasks[k].length > 0
   return (
-    <div className="card">
+    <div className="card" data-accent="gold">
       <div className="card-title">
-        <IconWand style={{ width: 15, color: 'var(--gold)' }} />
+        <IconWand style={{ width: 15 }} />
         {card.file}
         <SensitivityBadge level={card.sensitivity} />
         <span className="badge neutral">{card.mode}</span>
@@ -105,7 +106,7 @@ export function SummaryCard({ card }) {
 /* ------------------------------------------------------------------ tasks -- */
 export function TasksCard({ card }) {
   return (
-    <div className="card">
+    <div className="card" data-accent="coral">
       <div className="card-title">Action items — {card.file}</div>
       <div className="tasks-grid" style={{ gridTemplateColumns: '1fr' }}>
         <div className="tcol">
@@ -134,18 +135,23 @@ const BUCKET_LABELS = [
 export function DigestCard({ card, onDraftReply }) {
   const shielded = card.buckets.shielded || []
   return (
-    <div className="card">
+    <div className="card" data-accent="iris">
       <div className="card-title">
         Inbox digest <span className="badge mock">mock data</span>
       </div>
       <div className="card-sub">{card.source_note} · generated {fmtDate(card.generated_at)}</div>
+
+      <DistributionBar counts={card.counts} />
 
       {BUCKET_LABELS.map(([key, label]) => {
         const items = card.buckets[key] || []
         if (!items.length) return null
         return (
           <div className="digest-bucket" key={key}>
-            <div className="eyebrow">{label} <span className="count">— {items.length}</span></div>
+            <div className="eyebrow">
+              <i className="bdot" style={{ background: bucketColor(key) }} />
+              {label} <span className="count">— {items.length}</span>
+            </div>
             {items.map((it) => (
               <div key={it.id} className={`email-row ${key === 'urgent' ? 'urgent-item' : ''}`}>
                 <div className="avatar">{(it.sender_name || '?')[0]}</div>
@@ -185,7 +191,7 @@ export function DigestCard({ card, onDraftReply }) {
 /* --------------------------------------------------------------- briefing -- */
 export function BriefingCard({ card }) {
   return (
-    <div className="card">
+    <div className="card" data-accent="sunrise">
       <div className="card-title">Today’s briefing</div>
       {card.suggestions?.length > 0 && (
         <div style={{ marginTop: 10 }}>
@@ -275,9 +281,13 @@ export function CompareCard({ card }) {
     </div>
   )
   return (
-    <div className="card">
-      <div className="card-title"><IconCompare style={{ width: 15, color: 'var(--gold)' }} /> Comparison</div>
+    <div className="card" data-accent="duo">
+      <div className="card-title"><IconCompare style={{ width: 15 }} /> Comparison</div>
       {card.version_note && <div className="version-note">✦ {card.version_note}</div>}
+      <DuoBar unit=" words" rows={[
+        { label: card.a.name, value: card.a.words, color: 'var(--chart-action)' },
+        { label: card.b.name, value: card.b.words, color: 'var(--chart-meetings)' },
+      ]} />
       <div className="compare-grid">{col(card.a)}{col(card.b)}</div>
       <div style={{ marginTop: 14 }}>
         {card.shared_topics?.length > 0 && (
@@ -311,8 +321,8 @@ export function CompareCard({ card }) {
 export function DraftCard({ card, onSend }) {
   const [body, setBody] = useState(card.body)
   return (
-    <div className="card">
-      <div className="card-title"><IconSend style={{ width: 15, color: 'var(--gold)' }} /> Draft reply
+    <div className="card" data-accent="iris">
+      <div className="card-title"><IconSend style={{ width: 15 }} /> Draft reply
         <span className="badge neutral">draft — not sent</span></div>
       <div className="card-sub">{card.note}</div>
       <div className="draft-field"><label>To</label><div className="val">{card.to}</div></div>
@@ -337,7 +347,7 @@ export function DraftCard({ card, onSend }) {
 /* ----------------------------------------------------------------- memory -- */
 export function MemoryCard({ card }) {
   return (
-    <div className="card">
+    <div className="card" data-accent="mint">
       <div className="card-title">Memory {!card.enabled && <span className="badge blocked">off</span>}</div>
       {card.items.length === 0
         ? <div className="card-sub" style={{ marginTop: 8 }}>Empty — MAYA only stores what you explicitly ask her to.</div>

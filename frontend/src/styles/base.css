@@ -1,38 +1,54 @@
 /* ============================================================================
-   MAYA design system — base tokens & typography
-   Ink-dark canvas, Indian jewel tones (marigold gold, peacock teal, rani rose,
-   deep violet), Fraunces display over Manrope body.
+   MAYA design system v2 — base tokens & typography
+   Deep plum-ink canvas under a slow aurora; Indian jewel accents used as
+   "silk" multi-hue gradients (marigold → coral → rani → iris). Eccentric in
+   hue, gentle in luminance — glow is wide and soft, never neon-tight.
+   Fraunces display over Manrope body.
    ========================================================================= */
 
 :root {
-  /* canvas */
-  --bg-0: #07080d;
-  --bg-1: #0b0e16;
-  --bg-2: #10141f;
-  --surface: #131827;
-  --surface-2: #181e30;
-  --hairline: rgba(230, 197, 132, 0.11);
-  --hairline-strong: rgba(230, 197, 132, 0.22);
+  /* canvas — plum-ink, not neutral charcoal */
+  --bg-0: #0a0614;
+  --bg-1: #0f0a1e;
+  --bg-2: #150e27;
+  --surface: #170f28;
+  --surface-2: #1e1535;
+  --hairline: rgba(232, 196, 140, 0.12);
+  --hairline-strong: rgba(232, 196, 140, 0.24);
 
-  /* ink */
-  --ink: #ede7d9;
-  --ink-dim: #9aa1b5;
-  --ink-faint: #636b82;
+  /* ink — warm ivory over lavender-grays */
+  --ink: #f0e9dc;
+  --ink-dim: #a79fbf;
+  --ink-faint: #6e668a;
 
   /* jewels */
-  --gold: #d9a441;
-  --gold-bright: #f2c36b;
-  --gold-dim: rgba(217, 164, 65, 0.75);
-  --teal: #1fb6a6;
+  --gold: #f2b84b;
+  --gold-bright: #ffcf6e;
+  --gold-dim: rgba(242, 184, 75, 0.78);
+  --teal: #22c8b7;
   --teal-deep: #12756c;
-  --violet: #8b7cf6;
-  --rose: #e25c7e;
-  --green: #57b98a;
+  --iris: #a08dff;
+  --violet: #a08dff;          /* alias kept for older rules */
+  --rose: #ff5d8f;
+  --coral: #ff8663;
+  --green: #52d8a2;
+
+  /* the identity gradient — wordmark, orb, hero moments */
+  --silk: linear-gradient(120deg, #ffcf6e 0%, #ff8663 34%, #ff5d8f 62%, #a08dff 100%);
+
+  /* chart palette — validated (dataviz six checks, dark surface #170F28).
+     Fixed bucket order; shielded additionally carries a hatch texture. */
+  --chart-urgent: #e0503f;
+  --chart-action: #c08519;
+  --chart-meetings: #8672f0;
+  --chart-followups: #189e90;
+  --chart-noise: #5a6bc0;
+  --chart-shielded: #d9447a;
 
   /* state tints */
-  --safe-tint: rgba(87, 185, 138, 0.12);
-  --sensitive-tint: rgba(217, 164, 65, 0.12);
-  --blocked-tint: rgba(226, 92, 126, 0.12);
+  --safe-tint: rgba(82, 216, 162, 0.10);
+  --sensitive-tint: rgba(242, 184, 75, 0.11);
+  --blocked-tint: rgba(255, 93, 143, 0.10);
 
   /* type */
   --font-display: 'Fraunces', 'Georgia', serif;
@@ -42,8 +58,8 @@
   /* geometry */
   --radius: 16px;
   --radius-sm: 10px;
-  --shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
-  --shadow-soft: 0 8px 28px rgba(0, 0, 0, 0.35);
+  --shadow: 0 18px 50px rgba(2, 1, 8, 0.5);
+  --shadow-soft: 0 8px 28px rgba(2, 1, 8, 0.38);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -52,9 +68,7 @@ html, body, #root { height: 100%; }
 
 body {
   background:
-    radial-gradient(1100px 700px at 12% -8%, rgba(31, 182, 166, 0.07), transparent 60%),
-    radial-gradient(900px 700px at 105% 108%, rgba(139, 124, 246, 0.06), transparent 55%),
-    radial-gradient(700px 420px at 50% 0%, rgba(217, 164, 65, 0.05), transparent 60%),
+    radial-gradient(1000px 640px at 50% -10%, rgba(242, 184, 75, 0.055), transparent 60%),
     var(--bg-0);
   color: var(--ink);
   font-family: var(--font-body);
@@ -64,7 +78,37 @@ body {
   overflow: hidden;
 }
 
-::selection { background: rgba(217, 164, 65, 0.32); }
+/* ---- aurora: three drifting jewel blobs behind everything ---------------- */
+.aurora { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+.aurora i {
+  position: absolute;
+  width: 56vw; height: 56vw;
+  border-radius: 50%;
+  will-change: transform;
+}
+.aurora .a1 {
+  left: -18vw; top: -22vw;
+  background: radial-gradient(circle, rgba(34, 200, 183, 0.11), transparent 62%);
+  animation: drift1 64s ease-in-out infinite alternate;
+}
+.aurora .a2 {
+  right: -20vw; bottom: -24vw;
+  background: radial-gradient(circle, rgba(160, 141, 255, 0.10), transparent 62%);
+  animation: drift2 76s ease-in-out infinite alternate;
+}
+.aurora .a3 {
+  left: 30vw; top: 34vh;
+  width: 44vw; height: 44vw;
+  background: radial-gradient(circle, rgba(255, 93, 143, 0.06), transparent 60%);
+  animation: drift3 88s ease-in-out infinite alternate;
+}
+@keyframes drift1 { to { transform: translate(9vw, 7vh) scale(1.12); } }
+@keyframes drift2 { to { transform: translate(-8vw, -6vh) scale(1.08); } }
+@keyframes drift3 { to { transform: translate(-10vw, 8vh) scale(0.92); } }
+
+.shell { position: relative; z-index: 1; }
+
+::selection { background: rgba(255, 143, 121, 0.32); }
 
 h1, h2, h3 { font-family: var(--font-display); font-weight: 600; letter-spacing: 0.01em; }
 
@@ -84,10 +128,11 @@ input, select, textarea {
   border: 1px solid var(--hairline);
   border-radius: var(--radius-sm);
   outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 input:focus, textarea:focus, select:focus {
-  border-color: rgba(31, 182, 166, 0.55);
-  box-shadow: 0 0 0 3px rgba(31, 182, 166, 0.12);
+  border-color: rgba(34, 200, 183, 0.55);
+  box-shadow: 0 0 0 3px rgba(34, 200, 183, 0.12);
 }
 
 a { color: var(--teal); text-decoration: none; }
@@ -95,12 +140,12 @@ a { color: var(--teal); text-decoration: none; }
 /* scrollbars */
 ::-webkit-scrollbar { width: 9px; height: 9px; }
 ::-webkit-scrollbar-thumb {
-  background: rgba(154, 161, 181, 0.18);
+  background: rgba(167, 159, 191, 0.18);
   border-radius: 8px;
   border: 2px solid transparent;
   background-clip: padding-box;
 }
-::-webkit-scrollbar-thumb:hover { background-color: rgba(154, 161, 181, 0.32); background-clip: padding-box; }
+::-webkit-scrollbar-thumb:hover { background-color: rgba(167, 159, 191, 0.32); background-clip: padding-box; }
 ::-webkit-scrollbar-track { background: transparent; }
 
 /* section label — the recurring gold eyebrow */
@@ -119,6 +164,13 @@ a { color: var(--teal); text-decoration: none; }
   height: 1px;
   flex: 1;
   background: linear-gradient(90deg, var(--hairline-strong), transparent);
+}
+
+/* view transition — every screen enters with the same rise */
+.view-shell { display: flex; flex: 1; min-width: 0; min-height: 0; animation: viewIn 0.34s cubic-bezier(0.2, 0.9, 0.3, 1) both; }
+@keyframes viewIn {
+  from { opacity: 0; transform: translateY(12px) scale(0.996); }
+  to { opacity: 1; transform: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -15,7 +15,7 @@ export default function RightRail({ glance, sources, feed }) {
         <div className="stat-row">
           <div className="stat rose"><div className="v">{glance?.urgent ?? '–'}</div><div className="k">urgent</div></div>
           <div className="stat teal"><div className="v">{glance?.actions ?? '–'}</div><div className="k">actions</div></div>
-          <div className="stat"><div className="v">{glance?.meetings ?? '–'}</div><div className="k">meetings</div></div>
+          <div className="stat iris"><div className="v">{glance?.meetings ?? '–'}</div><div className="k">meetings</div></div>
         </div>
         {glance?.top && <div className="mock-note" style={{ padding: 0 }}>Next: {glance.top}</div>}
       </div>

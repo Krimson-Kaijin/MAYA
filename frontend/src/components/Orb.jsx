@@ -12,8 +12,10 @@ export default function Orb({ state = 'idle', tagline, interim }) {
   return (
     <div className="orb-stack">
       <div className={`orb ${state}`} role="status" aria-label={`MAYA is ${state}`}>
+        <div className="halo" />
         <div className="ring" />
         <div className="ring inner" />
+        <div className="orbit"><span className="bindu" /></div>
         <div className="core">
           <span className="glyph">మ</span>
         </div>

@@ -25,11 +25,34 @@ function Message({ m, handlers }) {
 }
 
 const SUGGESTIONS = [
-  'What should I prioritize today?',
-  'Summarize today’s important emails',
-  'Find the latest logistics SOP',
-  'Compare the logistics SOP v2 and v3',
+  ['What should I prioritize today?', 'gold'],
+  ['Summarize today’s important emails', 'iris'],
+  ['Find the latest logistics SOP', 'teal'],
+  ['Compare the logistics SOP v2 and v3', 'rose'],
 ]
+
+function Hero({ onSend }) {
+  const now = new Date()
+  const hour = now.getHours()
+  const word = hour < 12 ? 'Good morning.' : hour < 17 ? 'Good afternoon.' : 'Good evening.'
+  const date = now.toLocaleDateString('en-IN', {
+    weekday: 'long', day: 'numeric', month: 'long',
+  })
+  return (
+    <div className="hero">
+      <div className="hero-date">{date}</div>
+      <h2 className="hero-greeting">{word}</h2>
+      <div className="hero-sub">Cheppandi — what do you need?</div>
+      <div className="hero-pills">
+        {SUGGESTIONS.map(([s, accent]) => (
+          <button key={s} className="pill" data-accent={accent} onClick={() => onSend(s, 'chat')}>
+            <span className="p-dot" /> {s}
+          </button>
+        ))}
+      </div>
+    </div>
+  )
+}
 
 export default function CommandCenter({
   messages, mayaState, tagline, interim, onSend, onMic, micLive,
@@ -55,15 +78,7 @@ export default function CommandCenter({
       <div className="chat-col">
         <Orb state={mayaState} tagline={tagline} interim={interim} />
         <div className="chat-stream" ref={streamRef}>
-          {messages.length === 0 && (
-            <div className="empty">
-              <div className="big">Cheppandi — what do you need?</div>
-              Try: {SUGGESTIONS.map((s, i) => (
-                <button key={i} className="btn btn-ghost btn-sm" style={{ margin: '6px 4px 0' }}
-                        onClick={() => onSend(s, 'chat')}>{s}</button>
-              ))}
-            </div>
-          )}
+          {messages.length === 0 && <Hero onSend={onSend} />}
           {messages.map((m, i) => <Message key={i} m={m} handlers={handlers} />)}
           {thinking && (
             <div className="msg maya">
